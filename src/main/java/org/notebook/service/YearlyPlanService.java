@@ -7,7 +7,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
@@ -23,9 +33,12 @@ public class YearlyPlanService {
 
     private final YearlyPlanSearchRepository yearlyPlanSearchRepository;
 
-    public YearlyPlanService(YearlyPlanRepository yearlyPlanRepository, YearlyPlanSearchRepository yearlyPlanSearchRepository) {
+    private final MongoTemplate mongoTemplate;
+
+    public YearlyPlanService(YearlyPlanRepository yearlyPlanRepository, YearlyPlanSearchRepository yearlyPlanSearchRepository, MongoTemplate mongoTemplate) {
         this.yearlyPlanRepository = yearlyPlanRepository;
         this.yearlyPlanSearchRepository = yearlyPlanSearchRepository;
+        this.mongoTemplate = mongoTemplate;
     }
 
     /**
@@ -85,5 +98,11 @@ public class YearlyPlanService {
         log.debug("Request to search for a page of YearlyPlans for query {}", query);
         Page<YearlyPlan> result = yearlyPlanSearchRepository.search(queryStringQuery(query), pageable);
         return result;
+    }
+
+    public List<Integer> getAllDistinctYears(){
+        log.debug("Request to fetch all distinct years");
+        List<Integer> distinctYears = mongoTemplate.getCollection("yearly_plan").distinct("year");
+        return distinctYears;
     }
 }

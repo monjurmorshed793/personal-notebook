@@ -33,6 +33,11 @@ export class YearlyPlanService {
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
+    findDistinctYears(): Observable<EntityResponseType>{
+        return this.http.get<YearlyPlan> (`${this.resourceUrl}/distinct-years`, {observe: 'response'})
+            .map((res: EntityResponseType) => this.convertResponse(res));
+    }
+
     query(req?: any): Observable<HttpResponse<YearlyPlan[]>> {
         const options = createRequestOption(req);
         return this.http.get<YearlyPlan[]>(this.resourceUrl, { params: options, observe: 'response' })

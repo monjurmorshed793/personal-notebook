@@ -95,6 +95,20 @@ public class YearlyPlanResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+
+    /**
+     * GET  /distinct-years: get all the distinct years.
+     *
+     * @return the ResponseEntity with status 200 (OK) and with body the distinct year list, or with status 404 (Not Found)
+     */
+    @GetMapping("/yearly-plan/distinct-years")
+    @Timed
+    public ResponseEntity<List<Integer>> getAllDistinctYear(){
+        log.debug("REST request to get all distinct years");
+        List<Integer> years = yearlyPlanService.getAllDistinctYears();
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(years));
+    }
+
     /**
      * GET  /yearly-plans/:id : get the "id" yearlyPlan.
      *

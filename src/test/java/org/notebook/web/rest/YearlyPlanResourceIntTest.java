@@ -149,6 +149,18 @@ public class YearlyPlanResourceIntTest {
             .andExpect(jsonPath("$.[*].plan").value(hasItem(DEFAULT_PLAN.toString())));
     }
 
+
+    @Test
+    public void getAllDistinctYears() throws Exception{
+        //Initialize the database
+        yearlyPlanRepository.save(yearlyPlan);
+
+        // Get all distinct year list
+        restYearlyPlanMockMvc.perform(get("/api/yearly-plan/distinct-years?sort=desc"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
+    }
+
     @Test
     public void getYearlyPlan() throws Exception {
         // Initialize the database
