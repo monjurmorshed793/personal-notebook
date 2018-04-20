@@ -28,6 +28,8 @@ export class YearlyPlanDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
+        let currentDate = new Date();
+        this.yearlyPlan.year = currentDate.getFullYear();
     }
 
     clear() {

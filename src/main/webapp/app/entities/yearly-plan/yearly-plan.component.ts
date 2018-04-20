@@ -14,7 +14,8 @@ import {ITEMS_PER_PAGE, Principal} from '../../shared';
 })
 export class YearlyPlanComponent implements OnInit, OnDestroy {
 
-currentAccount: any;
+    currentAccount: any;
+    currentYear: number;
     yearlyPlans: YearlyPlan[];
     error: any;
     success: any;
@@ -116,6 +117,7 @@ currentAccount: any;
             this.currentAccount = account;
         });
         this.registerChangeInYearlyPlans();
+
     }
 
     ngOnDestroy() {
