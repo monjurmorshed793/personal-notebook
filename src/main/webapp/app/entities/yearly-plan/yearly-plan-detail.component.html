@@ -1,0 +1,30 @@
+
+<div *ngIf="yearlyPlan">
+    <h2><span>Yearly Plan</span> {{yearlyPlan.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Year</span></dt>
+        <dd>
+            <span>{{yearlyPlan.year}}</span>
+        </dd>
+        <dt><span>Plan</span></dt>
+        <dd>
+            <span>{{yearlyPlan.plan}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'yearly-plan/'+ yearlyPlan.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>
