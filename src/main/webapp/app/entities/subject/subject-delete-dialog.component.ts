@@ -1,12 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {JhiEventManager} from 'ng-jhipster';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { JhiEventManager } from 'ng-jhipster';
 
-import {Subject} from './subject.model';
-import {SubjectPopupService} from './subject-popup.service';
-import {SubjectService} from './subject.service';
+import { Subject } from './subject.model';
+import { SubjectPopupService } from './subject-popup.service';
+import { SubjectService } from './subject.service';
 
 @Component({
     selector: 'jhi-subject-delete-dialog',

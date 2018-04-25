@@ -9,6 +9,10 @@
         {
             "fieldName": "plan",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "userId",
+            "fieldType": "String"
         }
     ],
     "dto": "no",

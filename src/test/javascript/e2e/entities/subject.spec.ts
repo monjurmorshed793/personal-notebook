@@ -1,5 +1,5 @@
-import {browser, by, element} from 'protractor';
-import {NavBarPage} from './../page-objects/jhi-page-objects';
+import { browser, element, by } from 'protractor';
+import { NavBarPage } from './../page-objects/jhi-page-objects';
 
 describe('Subject e2e test', () => {
 
@@ -37,6 +37,8 @@ describe('Subject e2e test', () => {
         expect(subjectDialogPage.getNameInput()).toMatch('name');
         subjectDialogPage.setDescriptionInput('description');
         expect(subjectDialogPage.getDescriptionInput()).toMatch('description');
+        subjectDialogPage.setUser_idInput('user_id');
+        expect(subjectDialogPage.getUser_idInput()).toMatch('user_id');
         subjectDialogPage.save();
         expect(subjectDialogPage.getSaveButton().isPresent()).toBeFalsy();
     });
@@ -65,6 +67,7 @@ export class SubjectDialogPage {
     closeButton = element(by.css('button.close'));
     nameInput = element(by.css('input#field_name'));
     descriptionInput = element(by.css('input#field_description'));
+    user_idInput = element(by.css('input#field_user_id'));
 
     getModalTitle() {
         return this.modalTitle.getText();
@@ -84,6 +87,14 @@ export class SubjectDialogPage {
 
     getDescriptionInput = function() {
         return this.descriptionInput.getAttribute('value');
+    };
+
+    setUser_idInput = function(user_id) {
+        this.user_idInput.sendKeys(user_id);
+    };
+
+    getUser_idInput = function() {
+        return this.user_idInput.getAttribute('value');
     };
 
     save() {

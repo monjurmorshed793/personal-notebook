@@ -1,19 +1,19 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
-import {PersonalNotebookSharedModule} from '../../shared';
+import { PersonalNotebookSharedModule } from '../../shared';
 import {
+    SubjectService,
+    SubjectPopupService,
     SubjectComponent,
-    SubjectDeleteDialogComponent,
-    SubjectDeletePopupComponent,
     SubjectDetailComponent,
     SubjectDialogComponent,
     SubjectPopupComponent,
-    subjectPopupRoute,
-    SubjectPopupService,
-    SubjectResolvePagingParams,
+    SubjectDeletePopupComponent,
+    SubjectDeleteDialogComponent,
     subjectRoute,
-    SubjectService,
+    subjectPopupRoute,
+    SubjectResolvePagingParams,
 } from './';
 
 const ENTITY_STATES = [

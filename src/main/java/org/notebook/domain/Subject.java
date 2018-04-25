@@ -1,8 +1,8 @@
 package org.notebook.domain;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -24,6 +24,9 @@ public class Subject implements Serializable {
 
     @Field("description")
     private String description;
+
+    @Field("userId")
+    private String userId;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -59,6 +62,19 @@ public class Subject implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public Subject user_id(String user_id) {
+        this.userId = user_id;
+        return this;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -87,6 +103,7 @@ public class Subject implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
+            ", userId='" + getUserId() + "'" +
             "}";
     }
 }

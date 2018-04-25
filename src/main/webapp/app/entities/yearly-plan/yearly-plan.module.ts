@@ -1,19 +1,19 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
-import {PersonalNotebookSharedModule} from '../../shared';
+import { PersonalNotebookSharedModule } from '../../shared';
 import {
+    YearlyPlanService,
+    YearlyPlanPopupService,
     YearlyPlanComponent,
-    YearlyPlanDeleteDialogComponent,
-    YearlyPlanDeletePopupComponent,
     YearlyPlanDetailComponent,
     YearlyPlanDialogComponent,
     YearlyPlanPopupComponent,
-    yearlyPlanPopupRoute,
-    YearlyPlanPopupService,
-    YearlyPlanResolvePagingParams,
+    YearlyPlanDeletePopupComponent,
+    YearlyPlanDeleteDialogComponent,
     yearlyPlanRoute,
-    YearlyPlanService,
+    yearlyPlanPopupRoute,
+    YearlyPlanResolvePagingParams,
 } from './';
 
 const ENTITY_STATES = [

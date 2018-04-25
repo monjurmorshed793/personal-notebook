@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
-import {SERVER_API_URL} from '../../app.constants';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { SERVER_API_URL } from '../../app.constants';
 
-import {YearlyPlan} from './yearly-plan.model';
-import {createRequestOption} from '../../shared';
+import { YearlyPlan } from './yearly-plan.model';
+import { createRequestOption } from '../../shared';
 
 export type EntityResponseType = HttpResponse<YearlyPlan>;
 
@@ -30,11 +30,6 @@ export class YearlyPlanService {
 
     find(id: string): Observable<EntityResponseType> {
         return this.http.get<YearlyPlan>(`${this.resourceUrl}/${id}`, { observe: 'response'})
-            .map((res: EntityResponseType) => this.convertResponse(res));
-    }
-
-    findDistinctYears(): Observable<EntityResponseType>{
-        return this.http.get<YearlyPlan> (`${this.resourceUrl}/distinct-years`, {observe: 'response'})
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 

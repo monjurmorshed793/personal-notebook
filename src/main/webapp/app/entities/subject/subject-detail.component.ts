@@ -1,11 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {HttpResponse} from '@angular/common/http';
-import {Subscription} from 'rxjs/Subscription';
-import {JhiEventManager} from 'ng-jhipster';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
+import { JhiEventManager } from 'ng-jhipster';
 
-import {Subject} from './subject.model';
-import {SubjectService} from './subject.service';
+import { Subject } from './subject.model';
+import { SubjectService } from './subject.service';
 
 @Component({
     selector: 'jhi-subject-detail',

@@ -1,12 +1,12 @@
 /* tslint:disable max-line-length */
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
-import {PersonalNotebookTestModule} from '../../../test.module';
-import {SubjectDetailComponent} from '../../../../../../main/webapp/app/entities/subject/subject-detail.component';
-import {SubjectService} from '../../../../../../main/webapp/app/entities/subject/subject.service';
-import {Subject} from '../../../../../../main/webapp/app/entities/subject/subject.model';
+import { PersonalNotebookTestModule } from '../../../test.module';
+import { SubjectDetailComponent } from '../../../../../../main/webapp/app/entities/subject/subject-detail.component';
+import { SubjectService } from '../../../../../../main/webapp/app/entities/subject/subject.service';
+import { Subject } from '../../../../../../main/webapp/app/entities/subject/subject.model';
 
 describe('Component Tests', () => {
 

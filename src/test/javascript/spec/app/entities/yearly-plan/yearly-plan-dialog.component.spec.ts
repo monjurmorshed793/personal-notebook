@@ -1,14 +1,14 @@
 /* tslint:disable max-line-length */
-import {async, ComponentFixture, fakeAsync, inject, TestBed, tick} from '@angular/core/testing';
-import {HttpResponse} from '@angular/common/http';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {Observable} from 'rxjs/Observable';
-import {JhiEventManager} from 'ng-jhipster';
+import { ComponentFixture, TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
+import { HttpResponse } from '@angular/common/http';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs/Observable';
+import { JhiEventManager } from 'ng-jhipster';
 
-import {PersonalNotebookTestModule} from '../../../test.module';
-import {YearlyPlanDialogComponent} from '../../../../../../main/webapp/app/entities/yearly-plan/yearly-plan-dialog.component';
-import {YearlyPlanService} from '../../../../../../main/webapp/app/entities/yearly-plan/yearly-plan.service';
-import {YearlyPlan} from '../../../../../../main/webapp/app/entities/yearly-plan/yearly-plan.model';
+import { PersonalNotebookTestModule } from '../../../test.module';
+import { YearlyPlanDialogComponent } from '../../../../../../main/webapp/app/entities/yearly-plan/yearly-plan-dialog.component';
+import { YearlyPlanService } from '../../../../../../main/webapp/app/entities/yearly-plan/yearly-plan.service';
+import { YearlyPlan } from '../../../../../../main/webapp/app/entities/yearly-plan/yearly-plan.model';
 
 describe('Component Tests', () => {
 

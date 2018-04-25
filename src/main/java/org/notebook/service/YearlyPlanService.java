@@ -1,25 +1,18 @@
 package org.notebook.service;
 
+import org.notebook.domain.User;
 import org.notebook.domain.YearlyPlan;
+import org.notebook.repository.UserRepository;
 import org.notebook.repository.YearlyPlanRepository;
 import org.notebook.repository.search.YearlyPlanSearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing YearlyPlan.
@@ -33,12 +26,12 @@ public class YearlyPlanService {
 
     private final YearlyPlanSearchRepository yearlyPlanSearchRepository;
 
-    private final MongoTemplate mongoTemplate;
+    private final UserService userService;
 
-    public YearlyPlanService(YearlyPlanRepository yearlyPlanRepository, YearlyPlanSearchRepository yearlyPlanSearchRepository, MongoTemplate mongoTemplate) {
+    public YearlyPlanService(YearlyPlanRepository yearlyPlanRepository, YearlyPlanSearchRepository yearlyPlanSearchRepository, UserService userService) {
         this.yearlyPlanRepository = yearlyPlanRepository;
         this.yearlyPlanSearchRepository = yearlyPlanSearchRepository;
-        this.mongoTemplate = mongoTemplate;
+        this.userService = userService;
     }
 
     /**
@@ -48,7 +41,9 @@ public class YearlyPlanService {
      * @return the persisted entity
      */
     public YearlyPlan save(YearlyPlan yearlyPlan) {
-        log.debug("Request to save YearlyPlan : {}", yearlyPlan);
+        User loggedUser = userService.getLoggedUser().get();
+        log.debug("Request to save YearlyPlan : {} for user : {}", yearlyPlan, loggedUser.getLogin());
+        yearlyPlan.setUserId(loggedUser.getId());
         YearlyPlan result = yearlyPlanRepository.save(yearlyPlan);
         yearlyPlanSearchRepository.save(result);
         return result;
@@ -63,6 +58,18 @@ public class YearlyPlanService {
     public Page<YearlyPlan> findAll(Pageable pageable) {
         log.debug("Request to get all YearlyPlans");
         return yearlyPlanRepository.findAll(pageable);
+    }
+
+    /**
+     * Get all the yearlyPlans according to logged user.
+     *
+     * @param pageable the pagination information
+     * @return the list of entities
+     */
+    public Page<YearlyPlan> findAllByLoggedUser(Pageable pageable){
+        User loggedUser = userService.getLoggedUser().get();
+        log.debug("Request to get all YearlyPlans by logged user: {}", loggedUser.getLogin());
+        return yearlyPlanRepository.findAllByUserId(pageable, loggedUser.getId());
     }
 
     /**
@@ -98,11 +105,5 @@ public class YearlyPlanService {
         log.debug("Request to search for a page of YearlyPlans for query {}", query);
         Page<YearlyPlan> result = yearlyPlanSearchRepository.search(queryStringQuery(query), pageable);
         return result;
-    }
-
-    public List<Integer> getAllDistinctYears(){
-        log.debug("Request to fetch all distinct years");
-        List<Integer> distinctYears = mongoTemplate.getCollection("yearly_plan").distinct("year");
-        return distinctYears;
     }
 }

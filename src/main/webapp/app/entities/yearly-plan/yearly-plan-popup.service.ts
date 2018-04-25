@@ -1,9 +1,9 @@
-import {Component, Injectable} from '@angular/core';
-import {Router} from '@angular/router';
-import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {HttpResponse} from '@angular/common/http';
-import {YearlyPlan} from './yearly-plan.model';
-import {YearlyPlanService} from './yearly-plan.service';
+import { Injectable, Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpResponse } from '@angular/common/http';
+import { YearlyPlan } from './yearly-plan.model';
+import { YearlyPlanService } from './yearly-plan.service';
 
 @Injectable()
 export class YearlyPlanPopupService {

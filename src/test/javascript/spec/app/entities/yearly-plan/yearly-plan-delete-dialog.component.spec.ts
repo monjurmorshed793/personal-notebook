@@ -1,12 +1,12 @@
 /* tslint:disable max-line-length */
-import {async, ComponentFixture, fakeAsync, inject, TestBed, tick} from '@angular/core/testing';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {Observable} from 'rxjs/Observable';
-import {JhiEventManager} from 'ng-jhipster';
+import { ComponentFixture, TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs/Observable';
+import { JhiEventManager } from 'ng-jhipster';
 
-import {PersonalNotebookTestModule} from '../../../test.module';
-import {YearlyPlanDeleteDialogComponent} from '../../../../../../main/webapp/app/entities/yearly-plan/yearly-plan-delete-dialog.component';
-import {YearlyPlanService} from '../../../../../../main/webapp/app/entities/yearly-plan/yearly-plan.service';
+import { PersonalNotebookTestModule } from '../../../test.module';
+import { YearlyPlanDeleteDialogComponent } from '../../../../../../main/webapp/app/entities/yearly-plan/yearly-plan-delete-dialog.component';
+import { YearlyPlanService } from '../../../../../../main/webapp/app/entities/yearly-plan/yearly-plan.service';
 
 describe('Component Tests', () => {
 

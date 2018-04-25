@@ -1,12 +1,12 @@
 package org.notebook.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import io.github.jhipster.web.util.ResponseUtil;
 import org.notebook.domain.YearlyPlan;
 import org.notebook.service.YearlyPlanService;
 import org.notebook.web.rest.errors.BadRequestAlertException;
 import org.notebook.web.rest.util.HeaderUtil;
 import org.notebook.web.rest.util.PaginationUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -18,8 +18,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing YearlyPlan.
@@ -90,23 +94,9 @@ public class YearlyPlanResource {
     @Timed
     public ResponseEntity<List<YearlyPlan>> getAllYearlyPlans(Pageable pageable) {
         log.debug("REST request to get a page of YearlyPlans");
-        Page<YearlyPlan> page = yearlyPlanService.findAll(pageable);
+        Page<YearlyPlan> page = yearlyPlanService.findAllByLoggedUser(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/yearly-plans");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }
-
-
-    /**
-     * GET  /distinct-years: get all the distinct years.
-     *
-     * @return the ResponseEntity with status 200 (OK) and with body the distinct year list, or with status 404 (Not Found)
-     */
-    @GetMapping("/yearly-plan/distinct-years")
-    @Timed
-    public ResponseEntity<List<Integer>> getAllDistinctYear(){
-        log.debug("REST request to get all distinct years");
-        List<Integer> years = yearlyPlanService.getAllDistinctYears();
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(years));
     }
 
     /**

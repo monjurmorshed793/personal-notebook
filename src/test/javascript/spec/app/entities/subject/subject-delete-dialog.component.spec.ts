@@ -1,12 +1,12 @@
 /* tslint:disable max-line-length */
-import {async, ComponentFixture, fakeAsync, inject, TestBed, tick} from '@angular/core/testing';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {Observable} from 'rxjs/Observable';
-import {JhiEventManager} from 'ng-jhipster';
+import { ComponentFixture, TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs/Observable';
+import { JhiEventManager } from 'ng-jhipster';
 
-import {PersonalNotebookTestModule} from '../../../test.module';
-import {SubjectDeleteDialogComponent} from '../../../../../../main/webapp/app/entities/subject/subject-delete-dialog.component';
-import {SubjectService} from '../../../../../../main/webapp/app/entities/subject/subject.service';
+import { PersonalNotebookTestModule } from '../../../test.module';
+import { SubjectDeleteDialogComponent } from '../../../../../../main/webapp/app/entities/subject/subject-delete-dialog.component';
+import { SubjectService } from '../../../../../../main/webapp/app/entities/subject/subject.service';
 
 describe('Component Tests', () => {
 

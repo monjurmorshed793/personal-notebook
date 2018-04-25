@@ -1,15 +1,17 @@
 package org.notebook.web.rest;
 
+import org.notebook.PersonalNotebookApp;
+
+import org.notebook.domain.Subject;
+import org.notebook.repository.SubjectRepository;
+import org.notebook.service.SubjectService;
+import org.notebook.repository.search.SubjectSearchRepository;
+import org.notebook.web.rest.errors.ExceptionTranslator;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
-import org.notebook.PersonalNotebookApp;
-import org.notebook.domain.Subject;
-import org.notebook.repository.SubjectRepository;
-import org.notebook.repository.search.SubjectSearchRepository;
-import org.notebook.service.SubjectService;
-import org.notebook.web.rest.errors.ExceptionTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
@@ -21,9 +23,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.List;
 
+import static org.notebook.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.notebook.web.rest.TestUtil.createFormattingConversionService;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -41,6 +43,9 @@ public class SubjectResourceIntTest {
 
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+
+    private static final String DEFAULT_USER_ID = "AAAAAAAAAA";
+    private static final String UPDATED_USER_ID = "BBBBBBBBBB";
 
     @Autowired
     private SubjectRepository subjectRepository;
@@ -84,7 +89,8 @@ public class SubjectResourceIntTest {
     public static Subject createEntity() {
         Subject subject = new Subject()
             .name(DEFAULT_NAME)
-            .description(DEFAULT_DESCRIPTION);
+            .description(DEFAULT_DESCRIPTION)
+            .user_id(DEFAULT_USER_ID);
         return subject;
     }
 
@@ -111,6 +117,7 @@ public class SubjectResourceIntTest {
         Subject testSubject = subjectList.get(subjectList.size() - 1);
         assertThat(testSubject.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testSubject.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testSubject.getUserId()).isEqualTo(DEFAULT_USER_ID);
 
         // Validate the Subject in Elasticsearch
         Subject subjectEs = subjectSearchRepository.findOne(testSubject.getId());
@@ -146,7 +153,8 @@ public class SubjectResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(subject.getId())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].user_id").value(hasItem(DEFAULT_USER_ID.toString())));
     }
 
     @Test
@@ -160,7 +168,8 @@ public class SubjectResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(subject.getId()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()));
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
+            .andExpect(jsonPath("$.user_id").value(DEFAULT_USER_ID.toString()));
     }
 
     @Test
@@ -181,7 +190,8 @@ public class SubjectResourceIntTest {
         Subject updatedSubject = subjectRepository.findOne(subject.getId());
         updatedSubject
             .name(UPDATED_NAME)
-            .description(UPDATED_DESCRIPTION);
+            .description(UPDATED_DESCRIPTION)
+            .user_id(UPDATED_USER_ID);
 
         restSubjectMockMvc.perform(put("/api/subjects")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -194,6 +204,7 @@ public class SubjectResourceIntTest {
         Subject testSubject = subjectList.get(subjectList.size() - 1);
         assertThat(testSubject.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testSubject.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testSubject.getUserId()).isEqualTo(UPDATED_USER_ID);
 
         // Validate the Subject in Elasticsearch
         Subject subjectEs = subjectSearchRepository.findOne(testSubject.getId());
@@ -249,7 +260,8 @@ public class SubjectResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(subject.getId())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].user_id").value(hasItem(DEFAULT_USER_ID.toString())));
     }
 
     @Test

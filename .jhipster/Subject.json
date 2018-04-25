@@ -9,6 +9,10 @@
         {
             "fieldName": "description",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "user_id",
+            "fieldType": "String"
         }
     ],
     "dto": "no",

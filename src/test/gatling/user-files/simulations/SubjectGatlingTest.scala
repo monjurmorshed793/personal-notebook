@@ -72,7 +72,7 @@ class SubjectGatlingTest extends Simulation {
             .exec(http("Create new subject")
             .post("/api/subjects")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "description":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "description":"SAMPLE_TEXT", "userId":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_subject_url"))).exitHereIfFailed
             .pause(10)

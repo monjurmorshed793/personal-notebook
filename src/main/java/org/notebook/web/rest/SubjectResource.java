@@ -1,12 +1,12 @@
 package org.notebook.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import io.github.jhipster.web.util.ResponseUtil;
 import org.notebook.domain.Subject;
 import org.notebook.service.SubjectService;
 import org.notebook.web.rest.errors.BadRequestAlertException;
 import org.notebook.web.rest.util.HeaderUtil;
 import org.notebook.web.rest.util.PaginationUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -18,8 +18,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing Subject.
@@ -90,7 +94,7 @@ public class SubjectResource {
     @Timed
     public ResponseEntity<List<Subject>> getAllSubjects(Pageable pageable) {
         log.debug("REST request to get a page of Subjects");
-        Page<Subject> page = subjectService.findAll(pageable);
+        Page<Subject> page = subjectService.findAllByLoggedUser(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/subjects");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

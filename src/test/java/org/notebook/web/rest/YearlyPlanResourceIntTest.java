@@ -1,15 +1,17 @@
 package org.notebook.web.rest;
 
+import org.notebook.PersonalNotebookApp;
+
+import org.notebook.domain.YearlyPlan;
+import org.notebook.repository.YearlyPlanRepository;
+import org.notebook.service.YearlyPlanService;
+import org.notebook.repository.search.YearlyPlanSearchRepository;
+import org.notebook.web.rest.errors.ExceptionTranslator;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
-import org.notebook.PersonalNotebookApp;
-import org.notebook.domain.YearlyPlan;
-import org.notebook.repository.YearlyPlanRepository;
-import org.notebook.repository.search.YearlyPlanSearchRepository;
-import org.notebook.service.YearlyPlanService;
-import org.notebook.web.rest.errors.ExceptionTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
@@ -21,9 +23,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.List;
 
+import static org.notebook.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.notebook.web.rest.TestUtil.createFormattingConversionService;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -41,6 +43,9 @@ public class YearlyPlanResourceIntTest {
 
     private static final String DEFAULT_PLAN = "AAAAAAAAAA";
     private static final String UPDATED_PLAN = "BBBBBBBBBB";
+
+    private static final String DEFAULT_USER_ID = "AAAAAAAAAA";
+    private static final String UPDATED_USER_ID = "BBBBBBBBBB";
 
     @Autowired
     private YearlyPlanRepository yearlyPlanRepository;
@@ -84,7 +89,8 @@ public class YearlyPlanResourceIntTest {
     public static YearlyPlan createEntity() {
         YearlyPlan yearlyPlan = new YearlyPlan()
             .year(DEFAULT_YEAR)
-            .plan(DEFAULT_PLAN);
+            .plan(DEFAULT_PLAN)
+            .userId(DEFAULT_USER_ID);
         return yearlyPlan;
     }
 
@@ -111,6 +117,7 @@ public class YearlyPlanResourceIntTest {
         YearlyPlan testYearlyPlan = yearlyPlanList.get(yearlyPlanList.size() - 1);
         assertThat(testYearlyPlan.getYear()).isEqualTo(DEFAULT_YEAR);
         assertThat(testYearlyPlan.getPlan()).isEqualTo(DEFAULT_PLAN);
+        assertThat(testYearlyPlan.getUserId()).isEqualTo(DEFAULT_USER_ID);
 
         // Validate the YearlyPlan in Elasticsearch
         YearlyPlan yearlyPlanEs = yearlyPlanSearchRepository.findOne(testYearlyPlan.getId());
@@ -146,19 +153,8 @@ public class YearlyPlanResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(yearlyPlan.getId())))
             .andExpect(jsonPath("$.[*].year").value(hasItem(DEFAULT_YEAR)))
-            .andExpect(jsonPath("$.[*].plan").value(hasItem(DEFAULT_PLAN.toString())));
-    }
-
-
-    @Test
-    public void getAllDistinctYears() throws Exception{
-        //Initialize the database
-        yearlyPlanRepository.save(yearlyPlan);
-
-        // Get all distinct year list
-        restYearlyPlanMockMvc.perform(get("/api/yearly-plan/distinct-years?sort=desc"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
+            .andExpect(jsonPath("$.[*].plan").value(hasItem(DEFAULT_PLAN.toString())))
+            .andExpect(jsonPath("$.[*].userId").value(hasItem(DEFAULT_USER_ID.toString())));
     }
 
     @Test
@@ -172,7 +168,8 @@ public class YearlyPlanResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(yearlyPlan.getId()))
             .andExpect(jsonPath("$.year").value(DEFAULT_YEAR))
-            .andExpect(jsonPath("$.plan").value(DEFAULT_PLAN.toString()));
+            .andExpect(jsonPath("$.plan").value(DEFAULT_PLAN.toString()))
+            .andExpect(jsonPath("$.userId").value(DEFAULT_USER_ID.toString()));
     }
 
     @Test
@@ -193,7 +190,8 @@ public class YearlyPlanResourceIntTest {
         YearlyPlan updatedYearlyPlan = yearlyPlanRepository.findOne(yearlyPlan.getId());
         updatedYearlyPlan
             .year(UPDATED_YEAR)
-            .plan(UPDATED_PLAN);
+            .plan(UPDATED_PLAN)
+            .userId(UPDATED_USER_ID);
 
         restYearlyPlanMockMvc.perform(put("/api/yearly-plans")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -206,6 +204,7 @@ public class YearlyPlanResourceIntTest {
         YearlyPlan testYearlyPlan = yearlyPlanList.get(yearlyPlanList.size() - 1);
         assertThat(testYearlyPlan.getYear()).isEqualTo(UPDATED_YEAR);
         assertThat(testYearlyPlan.getPlan()).isEqualTo(UPDATED_PLAN);
+        assertThat(testYearlyPlan.getUserId()).isEqualTo(UPDATED_USER_ID);
 
         // Validate the YearlyPlan in Elasticsearch
         YearlyPlan yearlyPlanEs = yearlyPlanSearchRepository.findOne(testYearlyPlan.getId());
@@ -261,7 +260,8 @@ public class YearlyPlanResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(yearlyPlan.getId())))
             .andExpect(jsonPath("$.[*].year").value(hasItem(DEFAULT_YEAR)))
-            .andExpect(jsonPath("$.[*].plan").value(hasItem(DEFAULT_PLAN.toString())));
+            .andExpect(jsonPath("$.[*].plan").value(hasItem(DEFAULT_PLAN.toString())))
+            .andExpect(jsonPath("$.[*].userId").value(hasItem(DEFAULT_USER_ID.toString())));
     }
 
     @Test

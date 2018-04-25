@@ -1,5 +1,5 @@
-import {browser, by, element} from 'protractor';
-import {NavBarPage} from './../page-objects/jhi-page-objects';
+import { browser, element, by } from 'protractor';
+import { NavBarPage } from './../page-objects/jhi-page-objects';
 
 describe('YearlyPlan e2e test', () => {
 
@@ -37,6 +37,8 @@ describe('YearlyPlan e2e test', () => {
         expect(yearlyPlanDialogPage.getYearInput()).toMatch('5');
         yearlyPlanDialogPage.setPlanInput('plan');
         expect(yearlyPlanDialogPage.getPlanInput()).toMatch('plan');
+        yearlyPlanDialogPage.setUserIdInput('userId');
+        expect(yearlyPlanDialogPage.getUserIdInput()).toMatch('userId');
         yearlyPlanDialogPage.save();
         expect(yearlyPlanDialogPage.getSaveButton().isPresent()).toBeFalsy();
     });
@@ -65,6 +67,7 @@ export class YearlyPlanDialogPage {
     closeButton = element(by.css('button.close'));
     yearInput = element(by.css('input#field_year'));
     planInput = element(by.css('input#field_plan'));
+    userIdInput = element(by.css('input#field_userId'));
 
     getModalTitle() {
         return this.modalTitle.getText();
@@ -84,6 +87,14 @@ export class YearlyPlanDialogPage {
 
     getPlanInput = function() {
         return this.planInput.getAttribute('value');
+    };
+
+    setUserIdInput = function(userId) {
+        this.userIdInput.sendKeys(userId);
+    };
+
+    getUserIdInput = function() {
+        return this.userIdInput.getAttribute('value');
     };
 
     save() {

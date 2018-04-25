@@ -1,14 +1,14 @@
 /* tslint:disable max-line-length */
-import {async, ComponentFixture, fakeAsync, inject, TestBed, tick} from '@angular/core/testing';
-import {HttpResponse} from '@angular/common/http';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {Observable} from 'rxjs/Observable';
-import {JhiEventManager} from 'ng-jhipster';
+import { ComponentFixture, TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
+import { HttpResponse } from '@angular/common/http';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs/Observable';
+import { JhiEventManager } from 'ng-jhipster';
 
-import {PersonalNotebookTestModule} from '../../../test.module';
-import {SubjectDialogComponent} from '../../../../../../main/webapp/app/entities/subject/subject-dialog.component';
-import {SubjectService} from '../../../../../../main/webapp/app/entities/subject/subject.service';
-import {Subject} from '../../../../../../main/webapp/app/entities/subject/subject.model';
+import { PersonalNotebookTestModule } from '../../../test.module';
+import { SubjectDialogComponent } from '../../../../../../main/webapp/app/entities/subject/subject-dialog.component';
+import { SubjectService } from '../../../../../../main/webapp/app/entities/subject/subject.service';
+import { Subject } from '../../../../../../main/webapp/app/entities/subject/subject.model';
 
 describe('Component Tests', () => {
 

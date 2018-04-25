@@ -72,7 +72,7 @@ class YearlyPlanGatlingTest extends Simulation {
             .exec(http("Create new yearlyPlan")
             .post("/api/yearly-plans")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "year":"0", "plan":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "year":"0", "plan":"SAMPLE_TEXT", "userId":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_yearlyPlan_url"))).exitHereIfFailed
             .pause(10)

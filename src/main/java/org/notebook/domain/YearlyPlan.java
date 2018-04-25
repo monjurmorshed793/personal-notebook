@@ -1,8 +1,8 @@
 package org.notebook.domain;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -24,6 +24,9 @@ public class YearlyPlan implements Serializable {
 
     @Field("plan")
     private String plan;
+
+    @Field("user_id")
+    private String userId;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -59,6 +62,19 @@ public class YearlyPlan implements Serializable {
     public void setPlan(String plan) {
         this.plan = plan;
     }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public YearlyPlan userId(String userId) {
+        this.userId = userId;
+        return this;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -87,6 +103,7 @@ public class YearlyPlan implements Serializable {
             "id=" + getId() +
             ", year=" + getYear() +
             ", plan='" + getPlan() + "'" +
+            ", userId='" + getUserId() + "'" +
             "}";
     }
 }

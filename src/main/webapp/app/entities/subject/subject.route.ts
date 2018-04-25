@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from '@angular/router';
-import {JhiPaginationUtil} from 'ng-jhipster';
+import { Injectable } from '@angular/core';
+import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { JhiPaginationUtil } from 'ng-jhipster';
 
-import {UserRouteAccessService} from '../../shared';
-import {SubjectComponent} from './subject.component';
-import {SubjectDetailComponent} from './subject-detail.component';
-import {SubjectPopupComponent} from './subject-dialog.component';
-import {SubjectDeletePopupComponent} from './subject-delete-dialog.component';
+import { UserRouteAccessService } from '../../shared';
+import { SubjectComponent } from './subject.component';
+import { SubjectDetailComponent } from './subject-detail.component';
+import { SubjectPopupComponent } from './subject-dialog.component';
+import { SubjectDeletePopupComponent } from './subject-delete-dialog.component';
 
 @Injectable()
 export class SubjectResolvePagingParams implements Resolve<any> {

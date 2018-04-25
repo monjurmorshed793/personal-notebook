@@ -1,12 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs/Subscription';
-import {JhiAlertService, JhiEventManager, JhiParseLinks} from 'ng-jhipster';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
+import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import {YearlyPlan} from './yearly-plan.model';
-import {YearlyPlanService} from './yearly-plan.service';
-import {ITEMS_PER_PAGE, Principal} from '../../shared';
+import { YearlyPlan } from './yearly-plan.model';
+import { YearlyPlanService } from './yearly-plan.service';
+import { ITEMS_PER_PAGE, Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-yearly-plan',
@@ -14,8 +14,7 @@ import {ITEMS_PER_PAGE, Principal} from '../../shared';
 })
 export class YearlyPlanComponent implements OnInit, OnDestroy {
 
-    currentAccount: any;
-    currentYear: number;
+currentAccount: any;
     yearlyPlans: YearlyPlan[];
     error: any;
     success: any;
@@ -117,7 +116,6 @@ export class YearlyPlanComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
         });
         this.registerChangeInYearlyPlans();
-
     }
 
     ngOnDestroy() {
